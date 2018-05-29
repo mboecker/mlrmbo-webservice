@@ -1,0 +1,9 @@
+Package: mlrMBO-service
+Type: Package
+Title: mlrMBO webservice interface client library
+Version: 1.0
+Date: 2018-05-29
+Author: Marvin Böcker
+Maintainer: Marvin Böcker <marvin.boecker@tu-dortmund.de>
+Description: Uses JSON and REST to interface with mlrMBO-as-a-service
+License: MIT
