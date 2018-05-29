@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-// TODO: Add everything like R interpreter, mlrMBO package, load balancing
+# TODO: Add everything like R interpreter, mlrMBO package, load balancing
 
-// Expose HTTP
+# Expose HTTP
 EXPOSE 80
