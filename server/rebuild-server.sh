@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build . -t mlrmbo-webservice-testserver:$USER 
+docker build -t mlrmbo-webservice-testserver:$USER image
