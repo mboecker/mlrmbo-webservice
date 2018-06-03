@@ -1,25 +1,25 @@
-\name{mlrMBO-service-package}
-\alias{mlrMBO-service-package}
-\alias{mlrMBO-service}
+\name{mlrMBOservice-package}
+\alias{mlrMBOservice-package}
+\alias{mlrMBOservice}
 \docType{package}
 \title{
-\packageTitle{mlrMBO-service}
+\packageTitle{mlrMBOservice}
 }
 \description{
-\packageDescription{mlrMBO-service}
+\packageDescription{mlrMBOservice}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{mlrMBO-service}
-\packageIndices{mlrMBO-service}
+\packageDESCRIPTION{mlrMBOservice}
+\packageIndices{mlrMBOservice}
 ~~ An overview of how to use the package, including the most ~~
 ~~ important functions ~~
 }
 \author{
-\packageAuthor{mlrMBO-service}
+\packageAuthor{mlrMBOservice}
 
-Maintainer: \packageMaintainer{mlrMBO-service}
+Maintainer: \packageMaintainer{mlrMBOservice}
 }
 \references{
 ~~ Literature or other references for background information ~~
@@ -32,5 +32,5 @@ Maintainer: \packageMaintainer{mlrMBO-service}
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-~~ simple examples of the most important functions ~~
+# ~~ simple examples of the most important functions ~~
 }
