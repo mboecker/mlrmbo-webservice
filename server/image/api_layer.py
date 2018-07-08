@@ -27,11 +27,7 @@ class UploadData(Resource):
             try:
                 # Parse data as JSON
                 data = json.loads(data)
-            except Exception as e:
-                session_mgr.close(session_id)
-                return error_mgr.exception(e)
 
-            try:
                 # Open data file for this user
                 with open("data_dir/%d/data.json" % session_id, 'a') as file:
                     # Write JSON in compact form
