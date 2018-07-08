@@ -24,8 +24,12 @@ class CloseSession(Resource):
 class UploadData(Resource):
     def get(self, session_id, data):
         if session_mgr.is_ok(session_id):
-            # Parse data as JSON
-            data = json.loads(data)
+            try:
+                # Parse data as JSON
+                data = json.loads(data)
+            except Exception as e:
+                session_mgr.close(session_id)
+                return error_mgr.exception(e)
 
             try:
                 # Open data file for this user
