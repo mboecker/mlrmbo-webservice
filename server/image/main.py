@@ -18,4 +18,4 @@ api.add_resource(UploadData, "/upload/<int:session_id>/<data>")
 api.add_resource(Propose, "/propose/<int:session_id>")
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(host = "0.0.0.0", debug = True)

@@ -1,7 +1,7 @@
 from flask_restful import Resource
 import json
 import os
-from subprocess import run
+from subprocess import run, PIPE
 
 from data_layer import *
 
@@ -47,11 +47,12 @@ class Propose(Resource):
         if session_mgr.is_ok(session_id):
             try:
                 # Call the mlrMBO R script to actually propose a point.
-                c = run(["Rscript", "propose.R", str(session_id)])
+                c = run(["Rscript", "propose.R", str(session_id)], encoding = "ascii", stdout = PIPE)
                 c.check_returncode()
-                point = c.stdout
+                point = json.loads(c.stdout)
 
             except Exception as e:
+                print(c)
                 session_mgr.close(session_id)
                 return error_mgr.exception(e)
             return point, 200
