@@ -2,6 +2,7 @@ import random
 import shutil
 import os
 import uuid
+from subprocess import run, PIPE
 
 class SessionManager:
     # This set contains the current session_ids
@@ -14,6 +15,11 @@ class SessionManager:
 
         # Create data directory for this session
         os.makedirs("data_dir/%d" % session_id)
+        
+        # Create default mlrMBO configuration
+        c = run(["Rscript", "setup.R", str(session_id)], encoding = "ascii", stdout = PIPE)
+        c.check_returncode()
+        
         return session_id
 
     def close(self, session_id):
