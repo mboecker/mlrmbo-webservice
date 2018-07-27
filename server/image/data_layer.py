@@ -1,6 +1,7 @@
 import random
 import shutil
 import os
+import uuid
 
 class SessionManager:
     # This set contains the current session_ids
@@ -8,7 +9,7 @@ class SessionManager:
 
     def open(self):
         # Generate random session id
-        session_id = random.randrange(100000, 999999)
+        session_id = uuid.uuid4().int
         self.sessions.add(session_id)
 
         # Create data directory for this session
