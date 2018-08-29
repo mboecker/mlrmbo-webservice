@@ -14,6 +14,7 @@ api = Api(app)
 
 api.add_resource(OpenSession, "/session/open")
 api.add_resource(CloseSession, "/session/close/<int:session_id>")
+api.add_resource(Set, "/set/<int:session_id>/<key>/<value>")
 api.add_resource(UploadData, "/upload/<int:session_id>/<data>")
 api.add_resource(Propose, "/propose/<int:session_id>")
 

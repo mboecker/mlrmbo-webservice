@@ -1,5 +1,3 @@
-library(mlrMBO)
-
 # Read command line argument
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
@@ -9,13 +7,6 @@ if (length(args) == 0) {
 # First argument is the session id.
 session.id = args[1]
 
-mbo.obj = makeMBOControl()
-mbo.obj = setMBOControlInfill(mbo.obj, crit = crit.ei)
+filename = sprintf("data_dir/%s/config.json", session.id)
 
-print(session.id)
-
-filename = sprintf("data_dir/%s/config.rds", session.id)
-
-print(filename)
-
-saveRDS(mbo.obj, file = filename)
+write("{}", filename)

@@ -39,9 +39,33 @@ class SessionManager:
 class ErrorManager:
     def ok(self, msg = "ok"):
         return msg, 200
+        
+    def invalid_key(self):
+        return "invalid key", 500
+        
+    def invalid_value(self, key):
+        return "invalid value for key %s" % key, 500
 
     def no_session(self):
         return "no such session", 500
 
     def exception(self, e):
         return "exception: %s" % e, 500
+
+class DataManager:
+    def is_key_valid(self, key):
+        # TODO: Add every possible key here
+        return key == "par.set"
+
+    def is_value_valid(self, key, value):
+        # Check if the value is valid for the key
+        return True
+
+    def set_kv(self, session_id, key, value):
+        # Assumes that key and value are valid
+        # TODO: Read config.json
+        #       Check if `key` exists.
+        #       If so, replace key with value.
+        #       If not, append key and value.
+        #       Write config.json
+        return
