@@ -61,11 +61,17 @@ class DataManager:
         return ["noisy", "minimize"]
         
     def numeric_keys(self):
-        return ["propose.points", "opt.restarts"]
+        return ["propose.points", "opt.restarts", "opt.focussearch.maxit", "opt.focussearch.points"]
+    
+    def string_keys(self):
+        # learner key: one can only set the name of the learner currently
+        # crit key should be either "EI" or "CB"
+        # opt can be either focussearch, "cmaes" or "nsga2"
+        return ["learner", "crit", "opt"]
     
     def valid_keys(self): 
-        # TODO: Add every possible key here
-        return set(["par.set"]).union(self.numeric_keys()).union(self.boolean_keys())
+        # design key should be used by data.json
+        return set(["par.set"]).union(self.numeric_keys()).union(self.boolean_keys()).union(self.string_keys())
     
     def is_key_valid(self, key):
         return key in self.valid_keys()
