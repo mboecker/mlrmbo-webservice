@@ -1,6 +1,11 @@
 library(rjson)
 library(mlrMBO)
 
+return_error = function(msg) {
+    cat(paste0("r_error: ", msg, "\n"))
+    quit()
+}
+
 readData = function(session.id) {
   # Read mlrMBO configuration
   config = fromJSON(file = sprintf("data_dir/%s/config.json", session.id))
@@ -8,6 +13,8 @@ readData = function(session.id) {
   # Read JSON data from file
   con = file(sprintf("data_dir/%s/data.json", session.id), "r")
 
+  all_data = data.frame()
+  
   # Read all lines
   while (TRUE) {
     # Read one line
@@ -20,16 +27,24 @@ readData = function(session.id) {
 
     # Decode JSON
     data = fromJSON(line)
+    data = data.frame(data)
 
     # Add data to mlrMBO model
-    # TODO: append(mlr.obj, data)
+    all_data = rbind(all_data, data)
   }
 
   # Close file
   close(con)
+  
+  if(is.null(config$par.set)) {
+      return_error("set par.set please")
+  }
 
+  ctrl = makeMBOControl()
+  initSMBO(config$par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
+  
   # Return mlrMBO object
-  return(mlr.obj)
+  return(ctrl)
 }
 
 propose = function(session.id) {
