@@ -2,6 +2,7 @@ import random
 import shutil
 import os
 import uuid
+import json
 from subprocess import run, PIPE
 
 class SessionManager:
@@ -40,32 +41,58 @@ class ErrorManager:
     def ok(self, msg = "ok"):
         return msg, 200
         
+    def error(self, msg):
+        return "error: %s" % msg, 500
+        
     def invalid_key(self):
-        return "invalid key", 500
+        return self.error("invalid key")
         
     def invalid_value(self, key):
-        return "invalid value for key %s" % key, 500
+        return self.error("invalid value for key %s" % key)
 
     def no_session(self):
-        return "no such session", 500
+        return self.error("no such session")
 
     def exception(self, e):
-        return "exception: %s" % e, 500
+        return self.error("exception: %s" % e)
 
 class DataManager:
-    def is_key_valid(self, key):
+    def boolean_keys(self):
+        return ["noisy", "minimize"]
+        
+    def numeric_keys(self):
+        return ["propose.points", "opt.restarts"]
+    
+    def valid_keys(self): 
         # TODO: Add every possible key here
-        return key == "par.set"
+        return set(["par.set"]).union(self.numeric_keys()).union(self.boolean_keys())
+    
+    def is_key_valid(self, key):
+        return key in self.valid_keys()
 
     def is_value_valid(self, key, value):
         # Check if the value is valid for the key
+        if key in self.boolean_keys():
+            return value in ["true","false"]
+        if key in self.numeric_keys():
+            try:
+                int(value)
+                return True
+            except e:
+                return False
         return True
 
     def set_kv(self, session_id, key, value):
         # Assumes that key and value are valid
-        # TODO: Read config.json
-        #       Check if `key` exists.
-        #       If so, replace key with value.
-        #       If not, append key and value.
-        #       Write config.json
-        return
+        with open("data_dir/%s/config.json" % session_id, "r+") as config_file:
+            # Read json file
+            data = json.load(config_file)
+            
+            # Replace or append key-value
+            data[key] = value
+            
+            # Place file cursor at start of file in order to overwrite old config
+            config_file.seek(0)
+            
+            # Write json back to file
+            json.dump(data, config_file)
