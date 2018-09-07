@@ -45,10 +45,8 @@ readData = function(session.id) {
   }
 
   ctrl = makeMBOControl()
-  print("bla")
   par.set = JSONtoParSet(config$par.set)
-  print("bla2")
-  initSMBO(config$par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
+  initSMBO(control = ctrl, par.set = par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
   
   # Return mlrMBO object
   return(ctrl)
