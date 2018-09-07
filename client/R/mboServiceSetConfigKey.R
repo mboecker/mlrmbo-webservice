@@ -1,6 +1,6 @@
 library("httr")
 
-mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.points = NULL, opt.restarts = NULL, opt.focussearch.maxit = NULL, opt.focussearch.points = NULL) {
+mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.points = NULL, opt.restarts = NULL, opt.focussearch.maxit = NULL, opt.focussearch.points = NULL, par.set = NULL) {
   if(!is.null(minimize)) {
     if(is.logical(minimize)) {
       mboServiceSetConfigKeyRaw(obj, "minimize", minimize)
@@ -53,5 +53,11 @@ mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.po
       # FIXME
       stop("wrong type")
     }
+  }
+  
+  if(!is.null(par.set)) {
+    # TODO check type of par.set
+    as_json = parSetToJSON(par.set)
+    mboServiceSetConfigKeyRaw(obj, "par.set", as_json)
   }
 }

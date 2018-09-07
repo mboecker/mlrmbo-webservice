@@ -1,5 +1,9 @@
-library(rjson)
-library(mlrMBO)
+library("rjson")
+library("mlrMBO")
+library("stringi")
+
+source("helpers.R")
+source("json.R")
 
 return_error = function(msg) {
     cat(paste0("r_error: ", msg, "\n"))
@@ -41,6 +45,9 @@ readData = function(session.id) {
   }
 
   ctrl = makeMBOControl()
+  print("bla")
+  par.set = JSONtoParSet(config$par.set)
+  print("bla2")
   initSMBO(config$par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
   
   # Return mlrMBO object
