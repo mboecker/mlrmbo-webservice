@@ -46,18 +46,16 @@ readData = function(session.id) {
 
   ctrl = makeMBOControl()
   par.set = JSONtoParSet(config$par.set)
-  initSMBO(control = ctrl, par.set = par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
+  opt.state = initSMBO(control = ctrl, par.set = par.set, design = all_data, learner = config$learner, minimize = config$minimize, noisy = config$noisy)
   
   # Return mlrMBO object
-  return(ctrl)
+  return(opt.state)
 }
 
 propose = function(session.id) {
-  mlr.obj = readData(session.id)
+  opt.state = readData(session.id)
 
   # Return X data of proposed point
-  # TODO: p = predict(mlr.obj)
-  p = c(0.5, 1, 2)
-
+  p = proposePoints(opt.state)$prop.points
   return(p)
 }

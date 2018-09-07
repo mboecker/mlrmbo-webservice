@@ -1,5 +1,11 @@
 library("httr")
 
+#' Connect to a mlrMBO-as-a-service webserver.
+#'
+#' @param hostname The server to connect to. Can start with either "http://" or "https://".
+#'
+#' @return A handle, which can be passed to the other functions.
+#' @export
 mboServiceConnect = function(hostname) {
   url = sprintf("%s/session/open", hostname)
   result = httr::GET(url)

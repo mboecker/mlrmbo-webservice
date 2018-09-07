@@ -1,5 +1,11 @@
 library("httr")
 
+#' Change the mlrMBO settings used for your point proposal.
+#' 
+#' @param obj The handle object created by mboServiceConnect.
+#' @param ... The other parameters are mlrMBO parameters which can be set to be used by the service.
+#'
+#' @export
 mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.points = NULL, opt.restarts = NULL, opt.focussearch.maxit = NULL, opt.focussearch.points = NULL, par.set = NULL) {
   if(!is.null(minimize)) {
     if(is.logical(minimize)) {
