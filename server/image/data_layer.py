@@ -53,6 +53,9 @@ class ErrorManager:
     def no_session(self):
         return self.error("no such session")
 
+    def internal_error(self):
+        return self.error("there was an error while working on your request")
+
     def exception(self, e):
         return self.error("exception: %s" % e)
 
