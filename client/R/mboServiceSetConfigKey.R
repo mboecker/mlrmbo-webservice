@@ -6,7 +6,7 @@ library("httr")
 #' @param ... The other parameters are mlrMBO parameters which can be set to be used by the service.
 #'
 #' @export
-mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.points = NULL, opt.restarts = NULL, opt.focussearch.maxit = NULL, opt.focussearch.points = NULL, par.set = NULL) {
+mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.points = NULL, opt.restarts = NULL, opt.focussearch.maxit = NULL, opt.focussearch.points = NULL, par.set = NULL, crit = NULL) {
   if(!is.null(minimize)) {
     if(is.logical(minimize)) {
       mboServiceSetConfigKeyRaw(obj, "minimize", minimize)
@@ -65,5 +65,10 @@ mboServiceSetConfigKey = function(obj, minimize = NULL, noisy = NULL, propose.po
     # TODO check type of par.set
     as_json = parSetToJSON(par.set)
     mboServiceSetConfigKeyRaw(obj, "par.set", as_json)
+  }
+  
+  if(!is.null(crit)) {
+    # TODO check type and value of crit
+    mboServiceSetConfigKeyRaw(obj, "crit", crit)
   }
 }
