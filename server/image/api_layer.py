@@ -2,12 +2,16 @@ from flask_restful import Resource
 import json
 import os
 from subprocess import run, PIPE
+import pyRserve
 
 from data_layer import *
 
 session_mgr = SessionManager()
 error_mgr = ErrorManager()
 data_mgr = DataManager()
+
+conn = pyRserve.connect()
+conn.eval('setwd("..")')
 
 class OpenSession(Resource):
     def get(self):
@@ -63,13 +67,16 @@ class Propose(Resource):
         if session_mgr.is_ok(session_id):
             try:
                 # Call the mlrMBO R script to actually propose a point.
-                c = run(["Rscript", "propose.R", str(session_id)], encoding = "ascii", stdout = PIPE)
-                c.check_returncode()
-                point = json.loads(c.stdout)
+                #c = run(["Rscript", "propose.R", str(session_id)], encoding = "ascii", stdout = PIPE)
+                #c.check_returncode()
+                #point = json.loads(c.stdout)
+                point = conn.eval('toJSON(propose("%s"))' % str(session_id))
+                point = str(point)
+                print(point)
 
             except Exception as e:
-                print(c)
-                session_mgr.close(session_id)
+                print(e)
+                #session_mgr.close(session_id)
                 return error_mgr.internal_error()
             return point, 200
         else:

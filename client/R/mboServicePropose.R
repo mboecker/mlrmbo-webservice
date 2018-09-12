@@ -10,6 +10,6 @@ mboServicePropose = function(obj) {
   url = sprintf("%s/propose/%s", obj$hostname, obj$session_id)
   result = httr::GET(url)
   assertthat::assert_that(assertthat::are_equal(httr::http_status(result)$category, "Success"))
-  point = httr::content(result)
+  point = fromJSON(httr::content(result))
   return(point)
 }
