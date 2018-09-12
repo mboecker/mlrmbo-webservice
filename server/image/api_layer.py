@@ -71,7 +71,7 @@ class Propose(Resource):
                 #c.check_returncode()
                 #point = json.loads(c.stdout)
                 point = conn.eval('toJSON(propose("%s"))' % str(session_id))
-                point = str(point)
+                point = json.loads(point)
                 print(point)
 
             except Exception as e:
