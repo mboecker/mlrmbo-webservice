@@ -67,9 +67,6 @@ class Propose(Resource):
         if session_mgr.is_ok(session_id):
             try:
                 # Call the mlrMBO R script to actually propose a point.
-                #c = run(["Rscript", "propose.R", str(session_id)], encoding = "ascii", stdout = PIPE)
-                #c.check_returncode()
-                #point = json.loads(c.stdout)
                 point = conn.eval('toJSON(propose("%s"))' % str(session_id))
                 point = json.loads(point)
                 print(point)
