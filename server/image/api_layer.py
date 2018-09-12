@@ -73,7 +73,7 @@ class Propose(Resource):
 
             except Exception as e:
                 print(e)
-                #session_mgr.close(session_id)
+                session_mgr.close(session_id)
                 return error_mgr.internal_error()
             return point, 200
         else:
