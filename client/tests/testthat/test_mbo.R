@@ -12,8 +12,8 @@ Y = apply(data, 1, test_func)
 data = data.frame(data, y = Y)
 
 # connect to service
-#obj = mboServiceConnect("http://rombie.de:5000")    # <- This is our debugging server.
-obj = mboServiceConnect("http://localhost:5000")   # <- This is your local server.
+obj = mboServiceConnect("http://rombie.de:5000")    # <- This is our debugging server.
+#obj = mboServiceConnect("http://localhost:5000")   # <- This is your local server.
 
 # upload parameter set
 mboServiceSetConfigKey(obj, par.set = par.set, crit = "ei")
@@ -21,7 +21,7 @@ mboServiceSetConfigKey(obj, par.set = par.set, crit = "ei")
 # upload data
 mboServiceUpload(obj, data)
 
-while (min(data$y) > 1e-7) {
+while (min(data$y) > 1e-6) {
   # request point proposal
   point = simplify2array(mboServicePropose(obj))
   print(point)
