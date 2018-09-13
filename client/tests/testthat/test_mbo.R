@@ -21,25 +21,24 @@ mboServiceSetConfigKey(obj, par.set = par.set, crit = "ei")
 # upload data
 mboServiceUpload(obj, data)
 
-# request point proposal
-point = mboServicePropose(obj)
-print(point)
-
-expect_length(point, 2)
-
-# "eval" the proposed point
-y = 0
-r = append(point, y)
-r = data.frame(r)
-names(r) = names(data)
-
-# upload new data
-mboServiceUpload(obj, r)
-
-# request new point
-point = mboServicePropose(obj)
-print(point)
-
-expect_length(point, 2)
+while (min(data$y) > 1e-6) {
+  # request point proposal
+  point = simplify2array(mboServicePropose(obj))
+  print(point)
+  
+  expect_length(point, 2)
+  
+  # "eval" the proposed point
+  y = test_func(point)
+  r = append(point, y)
+  names(r) = names(data)
+  
+  # upload new data
+  mboServiceUpload(obj, r)
+  
+  data = rbind(data, r)
+  
+  #plot(data[1:2], type="p")
+}
 
 mboServiceDisconnect(obj)
