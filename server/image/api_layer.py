@@ -10,9 +10,6 @@ session_mgr = SessionManager()
 error_mgr = ErrorManager()
 data_mgr = DataManager()
 
-conn = pyRserve.connect()
-conn.eval('setwd("..")')
-
 class OpenSession(Resource):
     def get(self):
         session_id = session_mgr.open()
@@ -67,7 +64,10 @@ class Propose(Resource):
         if session_mgr.is_ok(session_id):
             try:
                 # Call the mlrMBO R script to actually propose a point.
+                conn = pyRserve.connect()
+                conn.eval('setwd("..")')
                 point = conn.eval('toJSON(propose("%s"))' % str(session_id))
+                conn.close()
                 point = json.loads(point)
                 print(point)
 
