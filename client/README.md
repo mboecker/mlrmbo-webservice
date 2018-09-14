@@ -4,5 +4,7 @@ We want to provide mlrMBO as a service. This client provides a high-level interf
 # How to use this?
 Install the R package with devtools (`devtools::install_github("mboecker/mlrmbo-webservice/client");`) and use according to package API (TBD).
 
+Use `mboServiceConnect("https://rombie.de:5001")` to use the server we provide.
+
 # May I use this?
 We provide both the server application as well as the reference client library as Open Source under the MIT license. This basically means you can use both the server and the client in open source and commercial projects.
