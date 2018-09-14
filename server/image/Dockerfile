@@ -1,18 +1,30 @@
-FROM r-base:3.4.3
+# Use builds from launchpad
+FROM ubuntu:18.10
 
-RUN apt-get update && apt-get install -y libssl-dev libcurl4-openssl-dev libxml2-dev python3 python3-pip
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN pip3 install flask flask_restful
+# Install system packages
+RUN \
+  apt-get update && \
+  apt-get -y dist-upgrade && \
+  apt-get install -y r-base-dev sudo curl git libcurl4-openssl-dev libssl-dev libxml2-dev python3 python3-pip wget
 
-# Install R packages like plumber and mlrMBO
-RUN Rscript -e "chooseCRANmirror(ind=1); install.packages(c('stringi', 'mlrMBO'))"
+# Install python packages
+RUN pip3 install flask flask_restful pyRserve
+
+# Install R packages mlrMBO and needed packages
+RUN Rscript -e "chooseCRANmirror(ind=1); pti = c('stringi','mlrMBO','rjson','DiceKriging','rgenoud'); install.packages(pti); stopifnot(all(pti %in% installed.packages()))"
+
+# Install Rserve
+RUN wget https://www.rforge.net/Rserve/snapshot/Rserve_1.8-6.tar.gz
+RUN R CMD INSTALL Rserve_1.8-6.tar.gz
 
 # Copy server files to the image
-COPY *.py *.R /root/
+ADD main.sh *.py *.R /root/
 
 # Expose HTTP
 EXPOSE 5000
 
 # Run server
 WORKDIR /root/
-CMD python3 main.py
+CMD /root/main.sh

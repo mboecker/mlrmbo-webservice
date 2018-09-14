@@ -1,8 +1,15 @@
 library("ParamHelpers")
 library("testthat")
 
-data = data.frame(x1 = c(1,1,0,0), x2 = c(1,0,1,0), y = c(0,0,1,1))
-par.set = makeNumericParamSet(len = 2, lower = c(0,0), upper = c(1,1))
+test_func = function(x) {
+  sum((x - c(4,4))^2)
+}
+
+n_size = 10
+par.set = makeNumericParamSet(len = 2, lower = c(-5,-5), upper = c(5,5))
+data = generateDesign(n = n_size, par.set)
+Y = apply(data, 1, test_func)
+data = data.frame(data, y = Y)
 
 # connect to service
 obj = mboServiceConnect("http://rombie.de:5000")    # <- This is our debugging server.
