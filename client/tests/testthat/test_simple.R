@@ -12,7 +12,7 @@ Y = apply(data, 1, test_func)
 data = data.frame(data, y = Y)
 
 # connect to service
-obj = mboServiceConnect("http://rombie.de:5000")    # <- This is our debugging server.
+obj = mboServiceConnect("https://rombie.de:5001")    # <- This is our debugging server.
 #obj = mboServiceConnect("http://localhost:5000")   # <- This is your local server.
 
 # upload parameter set

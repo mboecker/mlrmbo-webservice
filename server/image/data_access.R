@@ -1,4 +1,4 @@
-library("rjson")
+library("jsonlite")
 library("mlrMBO")
 library("stringi")
 
@@ -12,11 +12,9 @@ return_error = function(msg) {
 
 readData = function(session.id) {
   # Read mlrMBO configuration
-  config = fromJSON(file = sprintf("data_dir/%s/config.json", session.id))
-
+  config = read_json(sprintf("data_dir/%s/config.json", session.id))
   # Read JSON data from file
   con = file(sprintf("data_dir/%s/data.json", session.id), "r")
-
   all_data = data.frame()
   
   # Read all lines
@@ -67,5 +65,8 @@ propose = function(session.id) {
 
   # Return X data of proposed point
   p = proposePoints(opt.state)$prop.points
-  return(p)
+  
+  # Emit as JSON
+  p = simplify2array(p)
+  paste0("[", paste0(p, collapse = ","), "]")
 }

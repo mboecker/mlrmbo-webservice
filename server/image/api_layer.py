@@ -66,10 +66,18 @@ class Propose(Resource):
                 # Call the mlrMBO R script to actually propose a point.
                 conn = pyRserve.connect()
                 conn.eval('setwd("..")')
-                point = conn.eval('toJSON(propose("%s"))' % str(session_id))
+                
+                # Prepare call in R
+                commandline = 'propose("%s")' % str(session_id)
+
+                # Run that function
+                point = conn.eval(commandline)
+                
+                # Close connection
                 conn.close()
+                
+                # Debugging
                 point = json.loads(point)
-                print(point)
 
             except Exception as e:
                 print(e)
