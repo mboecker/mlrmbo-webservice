@@ -18,7 +18,6 @@ You can interact with the server by using either our R client or any other clien
 
 ```r
 library("ParamHelpers")
-library("testthat")
 
 # A simple test function with its optimum at (4, 4)
 test_func = function(x) {
