@@ -7,7 +7,8 @@ To give you the most interesting experiment configuration, MBO fits a model to y
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO).
 But not everyone wants to install a R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a REST-API backed by mlrMBO.
-REST is a text-based encoding for data now supported by almost every programming language.
+REST is using JSON (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
+This allows us to support every programming language on the client side and also use the secure HTTPS protocol for the data transfers.
 
 ## Project Structure
 
