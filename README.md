@@ -1,8 +1,8 @@
 # mlrMBO as a Webservice
 
-Model-based optimization can be useful for many people, including commercial and research operations.
-If you're trying to solve an optimization problem and the evalutation of a single experiment is expensive, MBO can be used.
-To give you the next experiment configuration, MBO fits a surrogate model to your already evaluated data and, based on that, proposes a new configuration you should try.
+Model-based optimization (also called Bayesian optimization) can be useful for many people, including commercial and research operations.
+If you're trying to solve a black-box optimization problem and the evalutation of a single experiment is expensive, MBO can be used.
+To give you the most interesting experiment configuration, MBO fits a surrogate model to your already evaluated data and, based on that, proposes a new configuration you should try.
 
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO).
 But not everyone wants to install a R-environment, the packages needed for mlrMBO, and so on.
@@ -35,10 +35,11 @@ test_func = function(x) {
 }
 
 # Create a parameter set using ParamHelpers which contains two variables from -5 to 5
-size_of_initial_design = 10
 par.set = makeNumericParamSet(len = 2, lower = c(-5,-5), upper = c(5,5))
 
 # Generate a random initial design
+# These are just points pseudo-randomly distributed in the search space
+size_of_initial_design = 10
 data = generateDesign(n = size_of_initial_design, par.set)
 
 # Run our test function on the initial design
@@ -57,6 +58,8 @@ mboServiceUpload(obj, data)
 # Request point proposal
 point = mboServicePropose(obj)
 print(point)
+
+# We now try the proposed point in `point`
 
 mboServiceDisconnect(obj)
 ```
