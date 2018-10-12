@@ -2,11 +2,12 @@
 
 Model-based optimization (also called Bayesian optimization) can be useful for many people, including commercial and research operations.
 If you're trying to solve a black-box optimization problem and the evalutation of a single experiment is expensive, MBO can be used.
-To give you the most interesting experiment configuration, MBO fits a surrogate model to your already evaluated data and, based on that, proposes a new configuration you should try.
+To give you the most interesting experiment configuration, MBO fits a model to your already evaluated data and, based on that, proposes a new configuration you should try.
 
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO).
 But not everyone wants to install a R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a REST-API backed by mlrMBO.
+REST is a text-based encoding for data now supported by almost every programming language.
 
 ## Project Structure
 
@@ -18,11 +19,11 @@ It contains [`mlrMBO`](https://github.com/mlr-org/mlrMBO), the "highly configura
 The client contains a REST client and some abstractions to make your life easier.
 But you can access the server with any REST client in any language you like, since the data exchange is done in JSON.
 
-## How it works
+## How-To
 
 Our server serves a REST-API which can be used to interact with mlrMBO.
 You upload your data and our machine learning algoriths will calculate an interesting point for you.
-You can interact with the server by using either our R client or any other client that can communicate with an REST-API.
+You can interact with the server by using either our R client or any other client that can communicate with a REST-API.
 
 ## Example: Our R client
 
