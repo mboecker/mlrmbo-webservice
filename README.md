@@ -1,5 +1,15 @@
 # mlrMBO as a Webservice
 
+Model-based optimization can be useful for many people, including commercial and research operations.
+If you're trying to solve an optimization problem and the evalutation of a single experiment is expensive, MBO can be used.
+To give you the next experiment configuration, MBO fits a surrogate model to your already evaluated data and, based on that, proposes a new configuration you should try.
+
+The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO).
+But not everyone wants to install a R-environment, the packages needed for mlrMBO, and so on.
+We try to give the benefits of mlrMBO to everyone by providing a REST-API backed by mlrMBO.
+
+## Project Structure
+
 This project is split into two parts: the server and the client.
 
 The server is the actual project.
