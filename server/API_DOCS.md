@@ -3,7 +3,7 @@
 The API is designed to work with "sessions".
 That is, the user/client creates a session, which is a handle to the uploaded data on the server-side.
 The session id is randomly generated on session creation.
-It has to be supplied with every API call such that the server can match the request to the uploaded data.
+It has to be supplied with every API call so that the server can match the request to the uploaded data.
 
 ## Workflow
 
