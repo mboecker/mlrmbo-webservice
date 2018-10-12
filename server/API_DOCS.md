@@ -8,6 +8,7 @@ It has to be supplied with every API call so that the server can match the reque
 ## Workflow
 
 - Open a session
+- Update configuration (Todo)
 - Upload your data
 - Request a proposal
 - Upload more data
@@ -21,6 +22,15 @@ It has to be supplied with every API call so that the server can match the reque
 This API endpoint creates a new empty session.
 
 - Returns your new Session ID
+
+### Update Configuration
+
+`GET /blabla`
+
+You can set mlrMBO-options using this endpoint. Possible keys are for example:
+infill, par.set, ...
+
+- Returns ok or an error, if you tried to set invalid data
 
 ### Upload data
 
