@@ -23,7 +23,7 @@ But you can access the server with any REST client in any language you like, sin
 ## How-To
 
 Our server serves a REST-API which can be used to interact with mlrMBO.
-You upload your data and our machine learning algoriths will calculate an interesting point for you.
+You upload your data and our machine learning algorithms will calculate an interesting point for you.
 You can interact with the server by using either our R client or any other client that can communicate with a REST-API.
 The API is documented [here](server/API_DOCS.md).
 
