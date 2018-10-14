@@ -8,7 +8,7 @@ It has to be supplied with every API call so that the server can match the reque
 ## Workflow
 
 - Open a session
-- Update configuration (Todo)
+- Update configuration
 - Upload your data
 - Request a proposal
 - Upload more data
@@ -25,10 +25,16 @@ This API endpoint creates a new empty session.
 
 ### Update Configuration
 
-`GET /blabla`
+`GET /set/<session_id>/<key>/<value>`
 
 You can set mlrMBO-options using this endpoint. Possible keys are for example:
-infill, par.set, ...
+
+- boolean: noisy, minimize
+- numeric: propose.points, opt.restarts, opt.focussearch.maxit, opt.focussearch.points
+- other: learner (learner name only), crit (EI or CB), opt (ocussearch, cmaes or nsga2)
+
+The supplied value has to be accepted by the key, e.g. you can't set `minimize` to 5 (`minimize` is a boolean key).
+If you don't alter the configuration using this API-endpoint, our service will use the default mlrMBO configuration.
 
 - Returns ok or an error, if you tried to set invalid data
 
