@@ -1,14 +1,13 @@
 # mlrMBO as a Webservice
 
-Model-based optimization (also called Bayesian optimization) can be useful for many people, including commercial and research operations.
-If you're trying to solve a black-box optimization problem and the evalutation of a single experiment is expensive, MBO can be used.
+Optimization is often needed in many operating fields, both for commercial and research purposes.
+Model-Based Optimization (also called Bayesian optimization) is most useful for trying to solve a black-box optimization problem where the evalutation of a single experiment is expensive.
 To give you the most interesting experiment configuration, MBO fits a model to your already evaluated data and, based on that, proposes a new configuration you should try.
 
-The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO).
-But not everyone wants to install a R-environment, the packages needed for mlrMBO, and so on.
+The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO), but not everyone wants to install an R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a REST-API backed by mlrMBO.
 REST is using JSON (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
-This allows us to support every programming language on the client side and also use the secure HTTPS protocol for the data transfers.
+This allows us to support every programming language on the client side and also to use the secure HTTPS protocol for data transfer.
 
 ## Project Structure
 
@@ -18,12 +17,12 @@ The server is the actual project.
 It contains [`mlrMBO`](https://github.com/mlr-org/mlrMBO), the "highly configurable R toolbox for model-based / Bayesian optimization of black-box functions."
 
 The client contains a REST client and some abstractions to make your life easier.
-But you can access the server with any REST client in any language you like, since the data exchange is done in JSON.
+However, you can access the server with any REST client in any language you like, since the data exchange is done in JSON.
 
-## How-To
+## Usage
 
 Our server serves a REST-API which can be used to interact with mlrMBO.
-You upload your data and our machine learning algorithms will calculate an interesting point for you.
+First, you upload your data and then our machine learning algorithms will calculate an interesting point for you.
 You can interact with the server by using either our R client or any other client that can communicate with a REST-API.
 The API is documented [here](server/API_DOCS.md).
 
