@@ -1,20 +1,22 @@
 # mlrMBO as a Webservice
 
 Optimization is often needed in many operating fields, both for commercial and research purposes.
-Model-Based Optimization (also called Bayesian optimization) is most useful for trying to solve a black-box optimization problem where the evalutation of a single experiment is expensive.
-To give you the most interesting experiment configuration, MBO fits a model to your already evaluated data and, based on that, proposes a new configuration you should try.
+Model-Based Optimization (also called Bayesian optimization) is most useful for solving a black-box optimization problem where a single experiment (typically called "evaluation") is expensive (in respect to e.g. money, cost or runtime), see [1].
+To give you the most interesting experiment setting, MBO fits a model to your already evaluated data and, based on that, proposes a new configuration to try.
 
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO), but not everyone wants to install an R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)-API backed by mlrMBO.
 REST is using [JSON](https://en.wikipedia.org/wiki/JSON) (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
 This allows us to support every programming language on the client side and also to use the secure HTTPS protocol for data transfer.
 
+1. Jones, Donald R., Matthias Schonlau, and William J. Welch. "Efficient global optimization of expensive black-box functions." Journal of Global optimization 13.4 (1998): 455-492.
+
 ## Project Structure
 
 This project is split into two parts: the server and the client.
 
 The server is the actual project.
-It contains [`mlrMBO`](https://github.com/mlr-org/mlrMBO), the "highly configurable R toolbox for model-based / Bayesian optimization of black-box functions."
+It contains mlrMBO, the "highly configurable R toolbox for model-based / Bayesian optimization of black-box functions."
 
 The client contains a REST client and some abstractions to make your life easier.
 However, you can access the server with any REST client in any language you like, since the data exchange is done in JSON.
