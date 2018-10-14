@@ -6,7 +6,7 @@ To give you the most interesting experiment configuration, MBO fits a model to y
 
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO), but not everyone wants to install an R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)-API backed by mlrMBO.
-REST is using JSON (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
+REST is using [JSON](https://en.wikipedia.org/wiki/JSON) (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
 This allows us to support every programming language on the client side and also to use the secure HTTPS protocol for data transfer.
 
 ## Project Structure
