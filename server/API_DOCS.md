@@ -29,9 +29,20 @@ This API endpoint creates a new empty session.
 
 You can set mlrMBO-options using this endpoint. Possible keys are for example:
 
-- boolean: noisy, minimize
-- numeric: propose.points, opt.restarts, opt.focussearch.maxit, opt.focussearch.points
-- other: learner (learner name only), crit (EI or CB), opt (ocussearch, cmaes or nsga2)
+#### Boolean
+- noisy (boolean): Is the optimized function deterministic or stochastic?
+- minimize (boolean): Is the optimum a minimal or maximal value?
+- propose.points (numeric): How many points should be proposed?
+
+#### Numeric
+- opt.restarts (numeric): How often should the infill-optimizer be run?
+- opt.focussearch.maxit (numeric): If `opt = "focussearch"`: How many iterations should be used.
+- opt.focussearch.points (numeric): If `opt = "focussearch"`: How many points should be used.
+
+#### Other
+- learner: What stochastic model should be used to model your data?
+- crit: Use "Expected Improvement" or "Confidence Bound" as the infill criterium?
+- opt: How to find an interesting point (focussearch, cmaes or nsga2)
 
 The supplied value has to be accepted by the key, e.g. you can't set `minimize` to 5 (`minimize` is a boolean key).
 If you don't alter the configuration using this API-endpoint, our service will use the default mlrMBO configuration.
