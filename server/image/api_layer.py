@@ -24,6 +24,9 @@ class CloseSession(Resource):
             return error_mgr.no_session()
             
 class Set(Resource):
+    # Block this if an mbo.state object already exists?
+    # We cannot change MBO settings afterwards
+    # 
     def get(self, session_id, key, value):
         if session_mgr.is_ok(session_id):
             if data_mgr.is_key_valid(key):
@@ -46,6 +49,7 @@ class UploadData(Resource):
                 data = json.loads(data)
 
                 # Open data file for this user
+                # write into data_hash(data).json
                 with open("data_dir/%d/data.json" % session_id, 'a') as file:
                     # Write JSON in compact form
                     file.write("%s\n" % json.dumps(data))

@@ -11,8 +11,19 @@ return_error = function(msg) {
 }
 
 readData = function(session.id) {
-  # Read mlrMBO configuration
-  config = read_json(sprintf("data_dir/%s/config.json", session.id))
+  # read old mbo state
+  mbo.state.file = sprintf("data_dir/%s/mbo_state.rds", session.id)
+  mbo.state = readRDS(mbo.state.file)
+  
+  # Read mlrMBO configuration just for the first time propose is requested!
+  # config = read_json(sprintf("data_dir/%s/config.json", session.id))
+
+  # iterate over new files
+  # put new x poins into data frame x.df
+  updateSMBO(mbo.state, x = x.df, y = y.new)
+  # delete files that were successfully read
+  saveRDS(mbo.state, mbo.state.file)
+
   # Read JSON data from file
   con = file(sprintf("data_dir/%s/data.json", session.id), "r")
   all_data = data.frame()
@@ -65,6 +76,8 @@ propose = function(session.id) {
 
   # Return X data of proposed point
   p = proposePoints(opt.state)$prop.points
+
+  # saveOptState here also
   
   # Emit as JSON
   p = simplify2array(p)
