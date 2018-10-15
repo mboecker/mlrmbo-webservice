@@ -1,13 +1,13 @@
 # mlrMBO as a Webservice
 
 Optimization is often needed in many operating fields, both for commercial and research purposes.
-Model-Based Optimization (also called Bayesian optimization) is most useful for solving a black-box optimization problem where a single experiment (typically called "evaluation") is expensive (in respect to e.g. money, cost or runtime), see [1].
+Model-Based Optimization (also called Bayesian optimization) is most useful for solving a [black-box](https://en.wikipedia.org/wiki/Black_box) optimization problem where a single experiment (typically called "evaluation") is expensive (in respect to e.g. money, cost or runtime), see [1].
 To give you the most interesting experiment setting, MBO fits a model to your already evaluated data and, based on that, proposes a new configuration to try.
 
 The state-of-the-art solution for MBO in R is [`mlrMBO`](https://github.com/mlr-org/mlrMBO), but not everyone wants to install an R-environment, the packages needed for mlrMBO, and so on.
 We try to give the benefits of mlrMBO to everyone by providing a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)-API backed by mlrMBO.
 REST is using [JSON](https://en.wikipedia.org/wiki/JSON) (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
-This allows us to support every programming language on the client side and also to use the secure HTTPS protocol for data transfer.
+This allows us to support every programming language on the client side (like [Python](https://www.python.org/) or [Julia](https://julialang.org/)) and also to use the secure HTTPS protocol for data transfer.
 
 1. Jones, Donald R., Matthias Schonlau, and William J. Welch. "Efficient global optimization of expensive black-box functions." Journal of Global optimization 13.4 (1998): 455-492.
 
