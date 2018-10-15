@@ -1,4 +1,4 @@
-library(rjson)
+library(jsonlite)
 
 # Read command line argument
 args = commandArgs(trailingOnly=TRUE)
