@@ -27,8 +27,8 @@ class SessionManager:
         if self.is_ok(session_id):
             # Remove data file and session directory
             filename = "data_dir/%d" % session_id
-            if os.path.isdir(filename):
-                shutil.rmtree(filename)
+#           if os.path.isdir(filename):
+#               shutil.rmtree(filename)
             self.sessions.remove(session_id)
             return True
         else:
