@@ -16,20 +16,21 @@ obj = mboServiceConnect("https://rombie.de:5001")    # <- This is our debugging 
 #obj = mboServiceConnect("http://localhost:5000")   # <- This is your local server.
 
 # upload parameter set
-mboServiceSetConfigKey(obj, par.set = par.set, crit = "ei")
+mboServiceSetConfigKey(obj, par.set = par.set, crit = "cb", propose.points = 2)
 
 # upload data
 mboServiceUpload(obj, data)
 
 # request point proposal
 point = mboServicePropose(obj)
+point = t(simplify2array(point))
 print(point)
 
-expect_length(point, 2)
+expect_equal(dim(point), c(2,2))
 
 # "eval" the proposed point
-y = test_func(point)
-r = append(point, y)
+y = apply(point, 2, function(x) test_func(simplify2array(x)))
+r = cbind(point, y)
 r = data.frame(r)
 names(r) = names(data)
 
@@ -38,8 +39,9 @@ mboServiceUpload(obj, r)
 
 # request new point
 point = mboServicePropose(obj)
+point = simplify2array(point)
 print(point)
 
-expect_length(point, 2)
+expect_equal(dim(point), c(2,2))
 
 mboServiceDisconnect(obj)
