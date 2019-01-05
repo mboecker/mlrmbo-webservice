@@ -69,7 +69,7 @@ readFirstModel = function(session.id) {
     learner = NULL
   }
   
-  ctrl = makeMBOControl(propose.points = simplify2array(config$propose.points))
+  ctrl = makeMBOControl(propose.points = as.numeric(config$propose.points))
   
   if(config$crit == "ei") {
       crit = makeMBOInfillCritEI()
@@ -79,7 +79,7 @@ readFirstModel = function(session.id) {
       return_error("set valid crit please")
   }
   
-  ctrl = setMBOControlInfill(control = ctrl, crit = crit, opt = simplify2array(config$opt), opt.restarts = simplify2array(config$opt.restarts), opt.focussearch.maxit = simplify2array(config$opt.focussearch.maxit), opt.focussearch.points = simplify2array(config$opt.focussearch.points))
+  ctrl = setMBOControlInfill(control = ctrl, crit = crit, opt = simplify2array(config$opt), opt.restarts = as.numeric(config$opt.restarts), opt.focussearch.maxit = as.numeric(config$opt.focussearch.maxit), opt.focussearch.points = as.numeric(config$opt.focussearch.points))
   par.set = JSONtoParSet(config$par.set)
   opt.state = initSMBO(control = ctrl, par.set = par.set, design = Xy, learner = learner, minimize = simplify2array(config$minimize), noisy = simplify2array(config$noisy))
   
