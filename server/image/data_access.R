@@ -32,6 +32,13 @@ readData = function(session.id) {
         data = fromJSON(line)
         data = data.frame(data)
         
+        for(parname in names(data)) {
+            if(is.integer(data[[parname]])) {
+                # Fix "REAL() can only be applied to a 'numeric', not a 'integer'"
+                data[[parname]] = as.numeric(data[[parname]])
+            }
+        }
+        
         # Add data to mlrMBO model
         all_data = rbind(all_data, data)
     }
@@ -96,8 +103,10 @@ readAndUpdateModel = function(session.id) {
       }
   } else {
       opt.state = readFirstModel(session.id)
-      saveRDS(opt.state, model_filename)
   }
+  
+  # Save current model
+  saveRDS(opt.state, model_filename)
   
   return(opt.state)
 }
@@ -111,5 +120,7 @@ propose = function(session.id) {
   
   # Emit as JSON
   p = simplify2array(p)
-  paste0("[", paste0(p, collapse = ","), "]")
+  p = as.character(toJSON(p))
+
+  p
 }
