@@ -97,8 +97,6 @@ readAndUpdateModel = function(session.id) {
       # Read additional data
       Xy = readData(session.id)
       
-      print(Xy)
-      
       if (dim(Xy)[1] > 0) {
           # Update model
           updateSMBO(opt.state, x = subset(Xy, select=-c(y)), y = as.list(Xy$y))
@@ -123,8 +121,6 @@ propose = function(session.id) {
   # Emit as JSON
   p = simplify2array(p)
   p = as.character(toJSON(p))
-
-  print(p)
 
   p
 }
