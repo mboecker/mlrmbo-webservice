@@ -1,10 +1,11 @@
 Optimization is often needed in many operating fields, both for commercial and research purposes.
-Model-Based Optimization (also called Bayesian optimization) is most useful for solving a black-box optimization problem where a single experiment (typically called "evaluation") is expensive (in respect to e.g. money, cost or runtime).
+Model-Based Optimization (also called Bayesian Optimization) is most useful for solving a black-box optimization problem where a single experiment (typically called "evaluation") is expensive (in respect to e.g. money, cost or runtime).
 Model-Based Optimization (MBO) fits a model to your already evaluated data and, based on that, proposes a new experiment configuration (a point somewhere in the search space), that is currently the most promising.
 
 # A new approach: MBO as a Webservice
 
-We already showed off [mlrMBO](link-to-mlrmbo-blogpost), a framework for MBO in R using the [mlr](link to mlr package or blogpost) package, but the installation of R, mlrMBO and all of its dependencies might by a hurdle for some users.
+We already showed [mlrMBO](link-to-mlrmbo-blogpost), a framework for MBO in R using the [mlr](https://mlr.mlr-org.com/) package.
+However it can be impractical to maintain the installation of R, mlrMBO and all of its dependencies on all machines where you want to conduct optimization.
 We try to give the benefits of mlrMBO to everyone by providing a [REST-API](https://en.wikipedia.org/wiki/Representational_state_transfer) backed by mlrMBO.
 REST is using [JSON](https://en.wikipedia.org/wiki/JSON) (a text-based data encoding supported by almost every programming language) to communicate over HTTP.
 Our project is split into two parts: A server application and a client package.
@@ -12,13 +13,15 @@ Our project is split into two parts: A server application and a client package.
 * The server is able to receive data and perform the model-fitting and point proposing.
 * The client is only responsible for sending/receiving the data.
 
-This allows us to create client libraries in [every programming language which supports REST](link to a list of REST clients in a lot of languages) (for example [Python](https://www.python.org) or [Julia](https://julialang.org)), but still use our state-of-the-art mbo package on the backend.
+This allows us to create client libraries in [every programming language which supports REST](link to a list of REST clients in a lot of languages) (for example [Python](https://www.python.org) or [Julia](https://julialang.org)), but still use our state-of-the-art MBO package on the back-end.
 By doing the optimization on the server-side, we eliminated the need for big packages on the client-side.
+Also it allows the optimization to be independent from evaluation.
+The MBO server will keep track of all evaluations and an optimization can be continued even after a long time.
 
 # Example Usage
 
-In this next section we will show off the use of our client library to perform simple Model-Based Optimization.
-We will minimuze an example-function whose optimum is obviously at (-4, -4).
+In this next section we will demonstrate the use of our client library to perform simple Model-Based Optimization.
+We will minimize an example-function, which has an optimum at (-4, -4).
 
 ```r
 # A simple test function with its optimum at (4, 4)
@@ -59,8 +62,8 @@ obj = mboServiceConnect("https://rombie.de:5001")
 ```
 
 We need to tell the server what the parameter space is.
-It is als possible to set some other options available in the mlrMBO package, like the infill criterium.
-For this example, we chose to use "expected improvement" as our infill criterium.
+It is also possible to set some other options available in the mlrMBO package, like the infill criterion.
+For this example, we chose to use "expected improvement" as our infill .
 We also upload the data we have already evaluated (our initial design).
 
 ```r
@@ -71,7 +74,7 @@ mboServiceUpload(obj, data)
 ```
 
 The next step is to actually perform MBO.
-This will run a model-fitting on the server side, optimization of the infill criterium and return the found point.
+This will run a model-fitting on the server side, optimization of the infill criterion and return the found point.
 
 ```r
 # Request point proposal
@@ -97,9 +100,15 @@ You can find more examples of our R client in [our GitHub-repository](https://gi
 
 # Running your own server
 
-You may think that this project is a great fit for your needs, but you have privacy concerns due to transmission of your data over the internet, as well as temporarily storing your data on third-party servers.
+You may think that this project is a great fit for your needs, but you have privacy concerns due to transmission of your data over the Internet, as well as temporarily storing your data on third-party servers.
 Although we guarantee to delete your data after a timeout or when you close your session, you may be interested in running your own backend.
 
 Running your own server is simple, since it's enclosed in a [Docker](https://www.docker.com) image.
 This means that deploying your own mlrMBO webservice is easy because it's already bundled with the necessary software needed for it to run.
 You can find more information about setting up your own server in [our GitHub-repository](https://github.com/mboecker/mlrmbo-webservice/tree/master/server).
+
+# Related Work
+
+- https://sigopt.com/
+- https://mindfoundry.ai/optaas/
+- https://bender.dreem.com/dashboard
