@@ -105,10 +105,19 @@ Although we guarantee to delete your data after a timeout or when you close your
 
 Running your own server is simple, since it's enclosed in a [Docker](https://www.docker.com) image.
 This means that deploying your own mlrMBO webservice is easy because it's already bundled with the necessary software needed for it to run.
-You can find more information about setting up your own server in [our GitHub-repository](https://github.com/mboecker/mlrmbo-webservice/tree/master/server).
+You can find more information about setting up your own server in [our GitHub-repository](https://github.com/mboecker/mlrmbo-webservice/blob/master/README.md).
 
 # Related Work
 
-- https://sigopt.com/
-- https://mindfoundry.ai/optaas/
-- https://bender.dreem.com/dashboard
+There are already services which provide the described functionality.
+They key difference is the price:
+SigOpt [1] and OPTaaS [2] are both not free while our project is open source
+and enables you to either use our free, public server or run your own server in-house.
+This is beneficial if, for example, you're subject to strict rules regarding your data.
+
+Bender [3] is another project similar to ours as it also enables you to upload data and request point proposals.
+The key difference there it only supports one specific kind of model, whereas mlrMBO (and therefore our optimization service) supports many learners, such as Kriging, which enabbles you to select a more fitting model for your specific usecase.
+
+- [1] https://sigopt.com
+- [2] https://mindfoundry.ai/optaas/
+- [3] https://bender.dreem.com/dashboard
