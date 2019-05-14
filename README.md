@@ -95,13 +95,17 @@ You can use any REST client to access the API, but we also implemented an easy t
 Since we want you to have the best user experience, we are currently running an open, free-for-all server at `https://rombie.de:5001`.
 You may use that as much as you wish.
 If you're having performance problems, consider running your own server.
-How to do that is documented in the next section.
+How to do that is documented in the next section of this README.
 
 ## How do I run my own server?
-It's simple!
 The `image` folder contains a Docker image with everything you need.
-You can just run the `rebuild-server.sh` script and it will create a docker image, which you can upload to a server somewhere.
+You can run the `rebuild-server.sh` script which will create a docker image that you can upload to a server or run locally.
 It exposes port 5000, which will serve our `mlrMBO` API.
+After building the image, it will be saved under the name "mlrmbo-webservice-testserver:$USER", where $USER is your active username.
+You can then run an instance of this image by using the "start-new-container.sh" script.
+After shutting down the container, you can restart this instance with the "start-existing-container.sh" script.
+These scripts are just wrappers for the "docker build", "docker run" and "docker start" commands, so if you're already familiar with those you can use them as well.
 
 # May I use this? (License)
-We provide both the server application as well as the reference client library as Open Source under the MIT license. This basically means you can use both the server and the client in open source and commercial projects.
+We provide both the server application as well as the reference client library as Open Source under the MIT license.
+This basically means you can use both the server and the client in open source and commercial projects.
